@@ -1,0 +1,26 @@
+{
+  "name": "vsd-plugin-fs-watch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidjamesstone/vsd-plugin-fs.git"
+  },
+  "author": "davidjamesstone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidjamesstone/vsd-plugin-fs/issues"
+  },
+  "homepage": "https://github.com/davidjamesstone/vsd-plugin-fs#readme",
+  "dependencies": {
+    "chokidar": "1.6.0",
+    "joi": "9.0.4"
+  },
+  "peerDependencies": {
+    "hapi": "^13.x.x"
+  }
+}
