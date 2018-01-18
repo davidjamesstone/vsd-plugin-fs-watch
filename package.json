@@ -4,23 +4,32 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node test/server"
+    "lint": "standard",
+    "unit-test": "lab",
+    "test": "npm run lint && npm run unit-tests"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davidjamesstone/vsd-plugin-fs.git"
+    "url": "git+https://github.com/davidjamesstone/vsd-plugin-fs-watch.git"
   },
   "author": "davidjamesstone",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/davidjamesstone/vsd-plugin-fs/issues"
+    "url": "https://github.com/davidjamesstone/vsd-plugin-fs-watch/issues"
   },
-  "homepage": "https://github.com/davidjamesstone/vsd-plugin-fs#readme",
+  "homepage": "https://github.com/davidjamesstone/vsd-plugin-fs-watch#readme",
   "dependencies": {
-    "chokidar": "1.6.0",
-    "joi": "9.0.4"
+    "chokidar": "2.0.0",
+    "hapi": "^17.2.0",
+    "joi": "13.1.0"
   },
   "peerDependencies": {
-    "hapi": "^13.x.x"
+    "hapi": "^17.x.x",
+    "nes": "^7.x.x"
+  },
+  "devDependencies": {
+    "code": "5.1.2",
+    "lab": "15.2.0",
+    "standard": "10.0.3"
   }
 }
