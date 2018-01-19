@@ -1,12 +1,12 @@
 {
   "name": "vsd-plugin-fs-watch",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.2",
+  "description": "Hapi plugin to watch files and broadcast changes to a nes web socket",
   "main": "index.js",
   "scripts": {
     "lint": "standard",
     "unit-test": "lab",
-    "test": "npm run lint && npm run unit-tests"
+    "test": "npm run lint && npm run unit-test"
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,7 @@
   "homepage": "https://github.com/davidjamesstone/vsd-plugin-fs-watch#readme",
   "dependencies": {
     "chokidar": "2.0.0",
-    "hapi": "^17.2.0",
-    "joi": "13.1.0"
+    "joi": "13.1.1"
   },
   "peerDependencies": {
     "hapi": "^17.x.x",
@@ -29,7 +28,9 @@
   },
   "devDependencies": {
     "code": "5.1.2",
+    "hapi": "^17.2.0",
     "lab": "15.2.0",
+    "nes": "^7.x.x",
     "standard": "10.0.3"
   }
 }

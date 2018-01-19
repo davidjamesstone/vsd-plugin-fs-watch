@@ -1,0 +1,1 @@
+Hapi plugin to watch files and broadcast changes to a nes web socket

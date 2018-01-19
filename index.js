@@ -15,26 +15,26 @@ module.exports = {
       server.route([{
         method: 'GET',
         path: '/',
-        config: {
-          handler: function (request, reply) {
-            reply(cache)
+        options: {
+          handler: (request, h) => {
+            return cache
           }
         }
       }, {
         method: 'GET',
         path: '/watched',
-        config: {
-          handler: function (request, reply) {
+        options: {
+          handler: (request, h) => {
             const path = request.query.path
             let idx
 
             if (path in cache) {
               idx = cache[path]
               // Reply with the watched files
-              return reply({
+              return {
                 id: idx,
                 watched: watchers[idx].watched
-              })
+              }
             } else {
               const client = new Watcher(path)
               const watcher = client.watcher
@@ -70,10 +70,10 @@ module.exports = {
                 })
 
                 // Reply with the watched files
-                return reply({
+                return {
                   id: idx,
                   watched: client.watched
-                })
+                }
               })
             }
           },
