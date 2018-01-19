@@ -1,6 +1,6 @@
 {
   "name": "vsd-plugin-fs-watch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Hapi plugin to watch files and broadcast changes to a nes web socket",
   "main": "index.js",
   "scripts": {

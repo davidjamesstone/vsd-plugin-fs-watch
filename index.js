@@ -24,7 +24,7 @@ module.exports = {
         method: 'GET',
         path: '/watched',
         options: {
-          handler: (request, h) => {
+          handler: async (request, h) => {
             const path = request.query.path
             let idx
 
@@ -39,41 +39,43 @@ module.exports = {
               const client = new Watcher(path)
               const watcher = client.watcher
 
-              watcher.on('ready', function () {
-                server.log(['info', 'vsd-plugin-fs-watch'],
-                  `Watching path ${path}`)
+              return new Promise((resolve, reject) => {
+                watcher.on('ready', function () {
+                  server.log(['info', 'vsd-plugin-fs-watch'],
+                    `Watching path ${path}`)
 
-                idx = watchers.push(client) - 1
-                cache[path] = idx
+                  idx = watchers.push(client) - 1
+                  cache[path] = idx
 
-                // Listen to watcher events and publish events
-                watcher.on('all', function (event, path, stat) {
-                  stat = stat || (event === 'unlinkDir')
-                  const fso = new FileSystemObject(path, stat)
-
-                  // publish specific named event
-                  server.publish(mount + '/' + idx + '/' + event, fso)
-
-                  // publish generic `update` event
-                  server.publish(mount + '/' + idx + '/update', {
-                    file: fso,
-                    event: event
+                  // Listen to watcher events and publish events
+                  watcher.on('all', function (event, path, stat) {
+                    stat = stat || (event === 'unlinkDir')
+                    const fso = new FileSystemObject(path, stat)
+  
+                    // publish specific named event
+                    server.publish(mount + '/' + idx + '/' + event, fso)
+  
+                    // publish generic `update` event
+                    server.publish(mount + '/' + idx + '/update', {
+                      file: fso,
+                      event: event
+                    })
+  
+                    server.log(['info', 'vsd-plugin-fs-watch'],
+                      `Watcher event happened ${event} ${fso.path}`)
                   })
 
-                  server.log(['info', 'vsd-plugin-fs-watch'],
-                    `Watcher event happened ${event} ${fso.path}`)
-                })
+                  watcher.on('error', function (err) {
+                    server.publish(mount + '/' + idx + 'error', err)
+                    server.log(['error', 'vsd-plugin-fs-watch'], err)
+                  })
 
-                watcher.on('error', function (err) {
-                  server.publish(mount + '/' + idx + 'error', err)
-                  server.log(['error', 'vsd-plugin-fs-watch'], err)
+                  // Reply with the watched files
+                  resolve({
+                    id: idx,
+                    watched: client.watched
+                  })
                 })
-
-                // Reply with the watched files
-                return {
-                  id: idx,
-                  watched: client.watched
-                }
               })
             }
           },
