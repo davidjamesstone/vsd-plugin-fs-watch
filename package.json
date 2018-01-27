@@ -14,6 +14,9 @@
   },
   "author": "davidjamesstone",
   "license": "ISC",
+  "engines": {
+    "node": ">=8.0.0"
+  },
   "bugs": {
     "url": "https://github.com/davidjamesstone/vsd-plugin-fs-watch/issues"
   },
